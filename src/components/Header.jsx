@@ -2,11 +2,17 @@ import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import Logo from './Logo.jsx'
 import { Icon } from '../icons.jsx'
+import { useCart } from '../context/CartContext.jsx'
+import { useWishlist } from '../context/WishlistContext.jsx'
+import { useUI } from '../context/UIContext.jsx'
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [query, setQuery] = useState('')
   const navigate = useNavigate()
+  const { count } = useCart()
+  const wishlist = useWishlist()
+  const { openCart } = useUI()
 
   function submitSearch(e) {
     e.preventDefault()
@@ -36,6 +42,16 @@ export default function Header() {
           <Icon.Search width={16} height={16} />
           <input type="search" placeholder="Search" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Search products" />
         </form>
+        <div className="header__actions">
+          <Link to="/wishlist" className="icon-btn" aria-label="Wishlist">
+            <Icon.Heart />
+            {wishlist.count > 0 && <span className="badge-count">{wishlist.count}</span>}
+          </Link>
+          <button className="icon-btn" aria-label="Open cart" onClick={openCart}>
+            <Icon.Bag />
+            {count > 0 && <span className="badge-count">{count}</span>}
+          </button>
+        </div>
       </div>
     </header>
   )
