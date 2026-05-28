@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { WishlistProvider } from '../context/WishlistContext.jsx'
 import ProductCard from './ProductCard.jsx'
 
 const base = {
@@ -9,7 +10,11 @@ const base = {
 }
 
 const renderCard = (product) =>
-  render(<MemoryRouter><ProductCard product={product} /></MemoryRouter>)
+  render(
+    <WishlistProvider>
+      <MemoryRouter><ProductCard product={product} /></MemoryRouter>
+    </WishlistProvider>,
+  )
 
 describe('ProductCard', () => {
   it('shows the name and price', () => {
