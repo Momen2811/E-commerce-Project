@@ -3,6 +3,8 @@ import { useParams, Link } from 'react-router-dom'
 import { getProductBySlug, getProducts } from '../lib/cms.js'
 import { formatPrice, discountPercent } from '../lib/format.js'
 import ProductGrid from '../components/ProductGrid.jsx'
+import Stars from '../components/Stars.jsx'
+import Reviews from '../components/Reviews.jsx'
 import { useCart } from '../context/CartContext.jsx'
 import { useUI } from '../context/UIContext.jsx'
 import { useWishlist } from '../context/WishlistContext.jsx'
@@ -96,6 +98,10 @@ export default function ProductPage() {
         <div className="pdp__info">
           <p className="pdp__eyebrow">{product.audience} · {product.type}</p>
           <h1 className="pdp__name">{product.name}</h1>
+          <div className="pdp__rating">
+            <Stars value={product.rating} size={16} />
+            <span>{product.rating} · {product.reviewCount} reviews</span>
+          </div>
           <div className="pdp__price">
             <span className={onSale ? 'price price--sale' : 'price'}>{formatPrice(product.price)}</span>
             {onSale && <span className="price price--old">{formatPrice(product.compareAtPrice)}</span>}
@@ -151,6 +157,8 @@ export default function ProductPage() {
           <ProductGrid products={related} loading={false} />
         </section>
       )}
+
+      <Reviews productId={product.id} />
     </div>
   )
 }
