@@ -26,8 +26,8 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header__bar">
-        <button className="header__menu-btn" aria-label="Toggle menu" onClick={() => setMenuOpen((o) => !o)}>
-          <Icon.Menu />
+        <button className="header__menu-btn" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((o) => !o)}>
+          {menuOpen ? <Icon.Close /> : <Icon.Menu />}
         </button>
         <Link to="/" className="header__logo" aria-label="B2B home" onClick={close}>
           <Logo />
@@ -37,13 +37,13 @@ export default function Header() {
           <NavLink to="/shop/men" className="header__link" onClick={close}>Men</NavLink>
           <NavLink to="/shop/unisex" className="header__link" onClick={close}>Unisex</NavLink>
           <NavLink to="/shop" end className="header__link" onClick={close}>Shop All</NavLink>
+          <form className="header__search" onSubmit={submitSearch} role="search">
+            <Icon.Search width={16} height={16} />
+            <input type="search" placeholder="Search" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Search products" />
+          </form>
         </nav>
-        <form className="header__search" onSubmit={submitSearch} role="search">
-          <Icon.Search width={16} height={16} />
-          <input type="search" placeholder="Search" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Search products" />
-        </form>
         <div className="header__actions">
-          <Link to="/wishlist" className="icon-btn" aria-label="Wishlist">
+          <Link to="/wishlist" className="icon-btn" aria-label="Wishlist" onClick={close}>
             <Icon.Heart />
             {wishlist.count > 0 && <span className="badge-count">{wishlist.count}</span>}
           </Link>
