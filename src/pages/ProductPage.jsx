@@ -3,15 +3,23 @@ import { useParams, Link } from 'react-router-dom'
 import { getProductBySlug, getProducts } from '../lib/cms.js'
 import { formatPrice, discountPercent } from '../lib/format.js'
 import ProductGrid from '../components/ProductGrid.jsx'
+import { useCart } from '../context/CartContext.jsx'
+import { useUI } from '../context/UIContext.jsx'
+import { useWishlist } from '../context/WishlistContext.jsx'
+import { Icon } from '../icons.jsx'
 
 export default function ProductPage() {
   const { slug } = useParams()
+  const { addItem } = useCart()
+  const { openCart } = useUI()
+  const { has, toggle } = useWishlist()
   const [product, setProduct] = useState(null)
   const [related, setRelated] = useState([])
   const [loading, setLoading] = useState(true)
   const [activeImage, setActiveImage] = useState(0)
   const [color, setColor] = useState(null)
   const [size, setSize] = useState(null)
+  const [sizeError, setSizeError] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -22,6 +30,7 @@ export default function ProductPage() {
       setActiveImage(0)
       setColor(p?.colors?.[0]?.name ?? null)
       setSize(null)
+      setSizeError(false)
       if (p) {
         const all = await getProducts()
         setRelated(all.filter((x) => x.type === p.type && x.id !== p.id).slice(0, 4))
@@ -45,6 +54,28 @@ export default function ProductPage() {
 
   const onSale = product.compareAtPrice && product.compareAtPrice > product.price
   const off = discountPercent(product.price, product.compareAtPrice)
+  const oneSize = product.sizes.length === 1 && product.sizes[0] === 'OS'
+  const requiresSize = !oneSize && product.sizes.length > 0
+  const saved = has(product.id)
+
+  function handleAdd() {
+    if (requiresSize && !size) {
+      setSizeError(true)
+      return
+    }
+    const effectiveSize = requiresSize ? size : (product.sizes[0] || null)
+    addItem({
+      productId: product.id,
+      slug: product.slug,
+      name: product.name,
+      price: product.price,
+      image: product.images[0],
+      size: effectiveSize,
+      color,
+      qty: 1,
+    })
+    openCart()
+  }
 
   return (
     <div className="pdp container">
@@ -80,16 +111,31 @@ export default function ProductPage() {
             </div>
           </div>
 
-          <div className="pdp__field">
-            <span className="pdp__label">Size</span>
-            <div className="size-row">
-              {product.sizes.map((s) => (
-                <button key={s} type="button" className={`size-chip ${size === s ? 'is-active' : ''}`} onClick={() => setSize(s)}>{s}</button>
-              ))}
+          {requiresSize && (
+            <div className="pdp__field">
+              <span className="pdp__label">Size</span>
+              <div className="size-row">
+                {product.sizes.map((s) => (
+                  <button key={s} type="button" className={`size-chip ${size === s ? 'is-active' : ''}`} onClick={() => { setSize(s); setSizeError(false) }}>{s}</button>
+                ))}
+              </div>
+              {sizeError && <span className="field__err">Please select a size.</span>}
             </div>
-          </div>
+          )}
 
-          {/* Add-to-cart button is added in Phase 2 once CartContext exists. */}
+          <div className="pdp__actions">
+            <button className="btn btn--primary" onClick={handleAdd} disabled={!product.inStock}>
+              {product.inStock ? 'Add to cart' : 'Sold out'}
+            </button>
+            <button
+              className={`heart heart--lg ${saved ? 'is-active' : ''}`}
+              aria-label={saved ? 'Remove from wishlist' : 'Add to wishlist'}
+              aria-pressed={saved}
+              onClick={() => toggle(product.id)}
+            >
+              {saved ? <Icon.HeartFilled /> : <Icon.Heart />}
+            </button>
+          </div>
 
           <p className="pdp__desc">{product.description}</p>
           <ul className="pdp__meta">
