@@ -1,0 +1,27 @@
+export default {
+  name: 'product',
+  title: 'Product',
+  type: 'document',
+  fields: [
+    { name: 'name', title: 'Name', type: 'string' },
+    { name: 'slug', title: 'Slug', type: 'slug', options: { source: 'name' } },
+    { name: 'audience', title: 'Audience', type: 'string', options: { list: ['women', 'men', 'unisex'] } },
+    { name: 'type', title: 'Type', type: 'string', options: { list: ['tops', 'bottoms', 'outerwear', 'dresses', 'shoes', 'accessories'] } },
+    { name: 'price', title: 'Price', type: 'number' },
+    { name: 'compareAtPrice', title: 'Compare-at price (sale)', type: 'number' },
+    { name: 'description', title: 'Description', type: 'text' },
+    { name: 'material', title: 'Material', type: 'string' },
+    { name: 'images', title: 'Images', type: 'array', of: [{ type: 'image' }] },
+    {
+      name: 'colors', title: 'Colors', type: 'array',
+      of: [{ type: 'object', fields: [{ name: 'name', type: 'string' }, { name: 'hex', type: 'string' }] }],
+    },
+    { name: 'sizes', title: 'Sizes', type: 'array', of: [{ type: 'string' }] },
+    { name: 'rating', title: 'Rating', type: 'number' },
+    { name: 'reviewCount', title: 'Review count', type: 'number' },
+    { name: 'isNew', title: 'New', type: 'boolean' },
+    { name: 'isFeatured', title: 'Featured', type: 'boolean' },
+    { name: 'inStock', title: 'In stock', type: 'boolean' },
+    { name: 'createdAt', title: 'Created at', type: 'datetime' },
+  ],
+}
