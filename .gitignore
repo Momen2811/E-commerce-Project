@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+studio/dist/
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+
+# Brainstorm scratch (visual companion)
+.superpowers/
+
+# Editor / OS
+.DS_Store
+*.log
