@@ -2,18 +2,21 @@ import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { WishlistProvider } from '../context/WishlistContext.jsx'
+import { UIProvider } from '../context/UIContext.jsx'
 import ProductCard from './ProductCard.jsx'
 
 const base = {
   id: 'p-1', name: 'Boxy Tee', slug: 'boxy-tee', price: 48, compareAtPrice: null,
-  images: ['/x.jpg'], isNew: false, inStock: true, colors: [], sizes: [],
+  images: ['/x.jpg'], isNew: false, inStock: true, colors: [], sizes: [], rating: 4.5,
 }
 
 const renderCard = (product) =>
   render(
-    <WishlistProvider>
-      <MemoryRouter><ProductCard product={product} /></MemoryRouter>
-    </WishlistProvider>,
+    <UIProvider>
+      <WishlistProvider>
+        <MemoryRouter><ProductCard product={product} /></MemoryRouter>
+      </WishlistProvider>
+    </UIProvider>,
   )
 
 describe('ProductCard', () => {

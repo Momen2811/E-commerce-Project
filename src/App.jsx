@@ -5,6 +5,7 @@ import { UIProvider } from './context/UIContext.jsx'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import CartDrawer from './components/CartDrawer.jsx'
+import QuickViewModal from './components/QuickViewModal.jsx'
 import HomePage from './pages/HomePage.jsx'
 import ShopPage from './pages/ShopPage.jsx'
 import ProductPage from './pages/ProductPage.jsx'
@@ -38,6 +39,7 @@ export default function App() {
             </main>
             <Footer />
             <CartDrawer />
+            <QuickViewModal />
           </div>
         </UIProvider>
       </WishlistProvider>
