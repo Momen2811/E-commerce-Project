@@ -26,12 +26,13 @@ Build a production-quality fashion e-commerce storefront (sells clothing for Wom
 
 ## Brand & Visual System
 
-- **Working brand name:** `VOLT` (single constant, trivial to rename).
+- **Brand name:** `B2B`.
+- **Logo:** provided in `B2B.pdf` — a circular badge enclosing an abstract geometric hourglass monogram, paired with a heavy `B2B` wordmark (the `2` is stylized). Supplied in several color variants: orange-on-white, white-on-black, black-on-orange, orange-on-black, and white-on-transparent. Implemented as an inline SVG `<Logo>` component (mark + optional wordmark) so it scales crisply and recolors per context (e.g. orange mark on the light header, white on dark footer). The original asset can be dropped into `public/` to use verbatim if preferred over the SVG recreation.
 - **Aesthetic:** bold, gallery-clean streetwear.
 - **Palette (CSS variables):**
   - `--bg: #f2f2ef` (off-white page background)
   - `--ink: #0a0a0a` (near-black text / dark UI)
-  - `--accent: #ff5a1f` (safety orange — CTAs, highlights, active states)
+  - `--accent: #e8742f` (B2B brand orange — CTAs, highlights, active states; exact value to be sampled from the logo asset during implementation. Replaces the earlier placeholder safety-orange so the UI matches the logo.)
   - `--muted: #777` (secondary text), `--line: #ddddd8` (borders), `--surface: #ffffff` (cards/inputs)
 - **Typography:**
   - Display/headings: heavy uppercase (Google font *Archivo Black* or *Anton*), tight letter-spacing.
@@ -151,7 +152,7 @@ e-commerce/
       WishlistContext.jsx
       UIContext.jsx
     components/
-      Header.jsx, Footer.jsx, ProductCard.jsx, ProductGrid.jsx,
+      Logo.jsx, Header.jsx, Footer.jsx, ProductCard.jsx, ProductGrid.jsx,
       FilterPanel.jsx, SortDropdown.jsx, CartDrawer.jsx,
       QuickViewModal.jsx, Rating.jsx, SizePicker.jsx,
       ColorSwatch.jsx, QtyStepper.jsx, Skeleton.jsx, EmptyState.jsx
