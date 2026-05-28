@@ -154,7 +154,7 @@ button { font-family: inherit; cursor: pointer; }
 /* Footer */
 .footer { background: var(--ink); color: #fff; margin-top: 40px; }
 .footer__inner { max-width: var(--maxw); margin: 0 auto; padding: 48px 20px; display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; }
-.footer__col { display: flex; flex-direction: column; gap: 10px; }
+.footer__col { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 .footer__col h4 { text-transform: uppercase; font-size: .8rem; letter-spacing: .08em; margin: 0 0 6px; }
 .footer__col a { color: #bbb; font-size: .85rem; }
 .footer__col a:hover { color: #fff; }
