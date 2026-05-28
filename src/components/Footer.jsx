@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer__inner">
         <div className="footer__col">
-          <Logo variant="full" className="logo--invert" />
+          <Logo tone="dark" />
           <p style={{ color: '#bbb', maxWidth: 240, fontSize: '.85rem' }}>Bold basics, built to last. Streetwear staples for everyone.</p>
         </div>
         <div className="footer__col">

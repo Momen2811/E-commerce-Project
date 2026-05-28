@@ -63,20 +63,14 @@ button { font-family: inherit; cursor: pointer; }
 .header__search input { border: 0; outline: 0; background: transparent; font-size: .85rem; width: 160px; }
 
 /* Logo */
-.logo { display: inline-flex; align-items: center; gap: 10px; }
-.logo__mark { width: 34px; height: 34px; }
-.logo__circle { fill: var(--accent); }
-.logo__mono { stroke: var(--ink); stroke-width: 5; fill: none; }
-.logo__word { font-family: var(--font-display); font-size: 1.5rem; letter-spacing: .02em; }
-.logo--invert .logo__circle { fill: #fff; }
-.logo--invert .logo__mono { stroke: var(--accent); }
-.logo--invert .logo__word { color: #fff; }
+.logo { height: 32px; width: auto; display: block; }
+.footer .logo { height: 36px; }
 
 /* Hero */
 .hero { display: flex; align-items: flex-end; min-height: 64vh; padding: 40px 20px; background: var(--ink); color: #fff; }
 .hero__content { max-width: var(--maxw); margin: 0 auto; width: 100%; }
 .hero__eyebrow { text-transform: uppercase; letter-spacing: .2em; font-size: .75rem; color: var(--accent); margin: 0 0 10px; }
-.hero__title { font-family: var(--font-display); font-size: clamp(3rem, 12vw, 8rem); line-height: .85; margin: 0; text-transform: uppercase; }
+.hero__title { font-family: var(--font-display); font-size: clamp(3rem, 12vw, 8rem); line-height: 1.08; margin: 0; text-transform: uppercase; }
 .hero__sub { font-size: 1.05rem; color: #cfcfcf; margin: 16px 0 24px; }
 
 /* Sections */

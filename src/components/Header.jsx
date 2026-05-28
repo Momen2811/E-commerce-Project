@@ -24,7 +24,7 @@ export default function Header() {
           <Icon.Menu />
         </button>
         <Link to="/" className="header__logo" aria-label="B2B home" onClick={close}>
-          <Logo variant="full" />
+          <Logo />
         </Link>
         <nav className={`header__nav ${menuOpen ? 'is-open' : ''}`}>
           <NavLink to="/shop/women" className="header__link" onClick={close}>Women</NavLink>
