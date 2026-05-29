@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
+import { useAuth } from '../context/AuthContext.jsx'
+import { addUserOrder } from '../lib/userStore.js'
 import { formatPrice } from '../lib/format.js'
 import { shippingCost, validateShipping, validatePayment, formatCardNumber, formatExpiry, createOrder } from '../lib/checkout.js'
 
@@ -19,9 +21,10 @@ function Field({ label, error, children }) {
 
 export default function CheckoutPage() {
   const { items, subtotal, clear } = useCart()
+  const { user } = useAuth()
   const navigate = useNavigate()
   const [step, setStep] = useState(0)
-  const [shipping, setShipping] = useState({ email: '', name: '', address: '', city: '', zip: '', country: '' })
+  const [shipping, setShipping] = useState({ email: user?.email || '', name: user?.name || '', address: '', city: '', zip: '', country: '' })
   const [method, setMethod] = useState('standard')
   const [payment, setPayment] = useState({ card: '', expiry: '', cvc: '', cardName: '' })
   const [errors, setErrors] = useState({})
@@ -63,6 +66,7 @@ export default function CheckoutPage() {
   function placeOrder() {
     const order = createOrder({ items, shipping, method })
     try { localStorage.setItem(LAST_ORDER_KEY, JSON.stringify(order)) } catch { /* ignore */ }
+    if (user) addUserOrder(user.id, order)
     clear()
     navigate('/order-confirmation')
   }
