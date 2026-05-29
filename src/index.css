@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --bg: #f2f2ef;
   --ink: #0a0a0a;
   --accent: #e8742f;
@@ -408,3 +409,31 @@ button { font-family: inherit; cursor: pointer; }
 .account__order-date { color: var(--muted); font-size: .8rem; margin-left: 10px; }
 
 @media (max-width: 768px) { .header__user { display: none; } }
+
+/* ===== Phase 5: dark theme ===== */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121212;
+  --ink: #f2f2ef;
+  --surface: #1c1c1c;
+  --line: #2e2e2e;
+  --muted: #9a9a9a;
+  --accent: #f0853c;
+}
+
+/* Sections that use --ink as a dark fill stay dark (text is already light) */
+[data-theme="dark"] .hero,
+[data-theme="dark"] .footer { background: #000; }
+
+/* Emphasis chips/badges whose fill (--ink) becomes light: flip their text to dark.
+   (Not .step.is-active .step__num — its background is --accent and keeps white text.) */
+[data-theme="dark"] .badge--new,
+[data-theme="dark"] .size-chip.is-active,
+[data-theme="dark"] .step.is-done .step__num,
+[data-theme="dark"] .card__quickview { color: #0a0a0a; }
+
+/* Body copy that was hard-coded dark grey: lighten on dark backgrounds */
+[data-theme="dark"] .pdp__desc,
+[data-theme="dark"] .pdp__meta,
+[data-theme="dark"] .review__body,
+[data-theme="dark"] .review__block p { color: #c9c9c9; }
