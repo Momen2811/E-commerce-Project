@@ -5,6 +5,7 @@ import { Icon } from '../icons.jsx'
 import { useCart } from '../context/CartContext.jsx'
 import { useWishlist } from '../context/WishlistContext.jsx'
 import { useUI } from '../context/UIContext.jsx'
+import { useAuth } from '../context/AuthContext.jsx'
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -13,6 +14,7 @@ export default function Header() {
   const { count } = useCart()
   const wishlist = useWishlist()
   const { openCart } = useUI()
+  const { isAuthenticated, user } = useAuth()
 
   function submitSearch(e) {
     e.preventDefault()
@@ -43,6 +45,15 @@ export default function Header() {
           </form>
         </nav>
         <div className="header__actions">
+          <Link
+            to={isAuthenticated ? '/account' : '/login'}
+            className="user-link"
+            aria-label={isAuthenticated ? 'Account' : 'Sign in'}
+            onClick={close}
+          >
+            <Icon.User />
+            {isAuthenticated && <span className="header__user">{user.name.split(' ')[0]}</span>}
+          </Link>
           <Link to="/wishlist" className="icon-btn" aria-label="Wishlist" onClick={close}>
             <Icon.Heart />
             {wishlist.count > 0 && <span className="badge-count">{wishlist.count}</span>}
