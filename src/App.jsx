@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import { ThemeProvider } from './context/ThemeContext.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { CartProvider } from './context/CartContext.jsx'
 import { WishlistProvider } from './context/WishlistContext.jsx'
@@ -24,6 +25,7 @@ import NotFoundPage from './pages/NotFoundPage.jsx'
 
 export default function App() {
   return (
+    <ThemeProvider>
     <AuthProvider>
       <CartProvider>
         <WishlistProvider>
@@ -56,5 +58,6 @@ export default function App() {
         </WishlistProvider>
       </CartProvider>
     </AuthProvider>
+    </ThemeProvider>
   )
 }

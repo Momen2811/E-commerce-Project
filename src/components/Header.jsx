@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import Logo from './Logo.jsx'
+import ThemeToggle from './ThemeToggle.jsx'
 import { Icon } from '../icons.jsx'
 import { useCart } from '../context/CartContext.jsx'
 import { useWishlist } from '../context/WishlistContext.jsx'
@@ -45,6 +46,7 @@ export default function Header() {
           </form>
         </nav>
         <div className="header__actions">
+          <ThemeToggle />
           <Link
             to={isAuthenticated ? '/account' : '/login'}
             className="user-link"
